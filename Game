@@ -1,1 +1,72 @@
-# I don't know what I am doing
+# Group Members: Aidan Peirce (AP), Owen Pastorius (OP), Finnan Weber (FW)
+# Student IDs (respectively): 20942995, 20944518, 20952343
+
+import random # Imports the random module for use in the getSecretNum function (AP)
+NUM_DIGITS = 3 # Assigns the variable NUM_DIGITS to the number of digits in the number that will be used in the game (AP)
+MAX_GUESS = 10 # Assigns the variable MAX_GUESS to the maximum number of guesses to be taken before the game ends (AP)
+
+def getSecretNum(): # Defines the function getSecretNum, which returns a string of unique random digits that is NUM_DIGITS long (AP)
+    numbers = list(range(10)) # Assigns the variable numbers to a list containing the ten integers from 0 to 9 (AP)
+    random.shuffle(numbers) # Uses the random module to shuffle the elements of numbers (AP)
+    secretNum = '' # Assigns the variable secretNum to an empty string to be used in the for loop below (AP)
+    for i in range(NUM_DIGITS): # Starts a for loop for all i in a range of NUM_DIGITS (i.e. 0, 1, 2, ...) (AP)
+        secretNum += str(numbers[i]) # Reassigns secretNum for each instance in the loop, appending a random integer from 0 to 9 to the end of the string for each digit (AP)
+    return secretNum # Returns the new, reassigned string secretNum as a result of the function (AP)
+
+def getClues(guess, secretNum): # Defines the function isOnlyDigits, which returns a string with the Pico, Fermi, & Bagels clues to the user (AP)
+    if guess == secretNum: # Initial if statement to test if the guess is equal to the number the game is thinking of, secretNum (AP)
+        return 'Al Dante' # Returns a text string if the above statement is true, else the function continues (AP)
+
+    clues = [] # Assigns the variable clues to an empty list to be used in the following for loop (AP)
+    for i in range(len(guess)): # Starts a for loop for all i in the range of the length of the user's guess (AP)
+        if guess[i] == secretNum[i]: # Determines if the i'th index of guess is the same as the i'th index of secretNum (AP)
+            clues.append('Fermi') # If the above is true, appends 'Fermi' to the clue list to be displayed after the guess (AP)
+        elif guess[i] in secretNum: # Determines if the i'th index of guess is present anywhere in secretNum (AP)
+            clues.append('Pico') # If the above is true, appends 'Pico' to the clue list to be displayed after the guess (AP)
+    if len(clues) == 0: # Determines if there are no strings present in clues after the above loop, meaning no digits of secretNum are present in guess (AP)
+        return 'Bagels' # If the above is true, returns 'Bagels' instead of anything in clues (AP)
+
+    clues.sort() # Sorts the list (clues) alphabetically so the player cannot know any relative orders of the clues with respect to secretNum (AP)
+    return ' '.join(clues) # As the final result of the function, joins clues into one string, separating each element of the list by a space, and returns the result (AP)
+
+def isOnlyDigits(num): # Defines the function isOnlyDigits, which returns True if num is a string of only digits. Otherwise, it returns False
+    if num == '':
+        return False
+
+    for i in num:
+        if i not in '0 1 2 3 4 5 6 7 8 9'.split():
+            return False
+
+    return True
+
+
+print('I am thinking of a %s-digit number. Try to guess what it is.' %(NUM_DIGITS))
+print('The clues I give are...')
+print('When I say:    That means:')
+print(' Bagels        None of the digits is correct.')
+print(' Pico          One digit is correct but in the wrong position.')
+print(' Fermi         One digit is correct and in the right position.')
+print(' Al Dante      You got it!')
+
+while True:
+    secretNum = getSecretNum()
+    print('I have thought up a number. You have %s guesses to get it.' %(MAX_GUESS))
+
+    guessesTaken = 1
+    while guessesTaken <= MAX_GUESS:
+        guess = ''
+        while len(guess) != NUM_DIGITS or not isOnlyDigits(guess):
+            print('Guess #%s: ' % (guessesTaken))
+            guess = input()
+
+        print(getClues(guess, secretNum))
+        guessesTaken += 1
+
+        if guess == secretNum:
+            break
+        if guessesTaken > MAX_GUESS:
+            print('You ran out of guesses. The answer was %s.' %(secretNum))
+
+    print('Do you want to play again? (yes or no)')
+    if not input().lower().startswith('y'):
+        break
