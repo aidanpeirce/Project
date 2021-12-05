@@ -13,7 +13,7 @@ def getSecretNum(): # Defines the function getSecretNum, which returns a string 
         secretNum += str(numbers[i]) # Reassigns secretNum for each instance in the loop, appending a random integer from 0 to 9 to the end of the string for each digit (AP)
     return secretNum # Returns the new, reassigned string secretNum as a result of the function (AP)
 
-def getClues(guess, secretNum): # Defines the function isOnlyDigits, which returns a string with the Pico, Fermi, & Bagels clues to the user (AP)
+def getClues(guess, secretNum): # Defines the function getClues, which returns a string with the Pico, Fermi, & Bagels clues to the user (AP)
     if guess == secretNum: # Initial if statement to test if the guess is equal to the number the game is thinking of, secretNum (AP)
         return 'Al Dante' # Returns a text string if the above statement is true, else the function continues (AP)
 
@@ -29,24 +29,24 @@ def getClues(guess, secretNum): # Defines the function isOnlyDigits, which retur
     clues.sort() # Sorts the list (clues) alphabetically so the player cannot know any relative orders of the clues with respect to secretNum (AP)
     return ' '.join(clues) # As the final result of the function, joins clues into one string, separating each element of the list by a space, and returns the result (AP)
 
-def isOnlyDigits(num): # Defines the function isOnlyDigits, which returns True if num is a string of only digits. Otherwise, it returns False
-    if num == '':
-        return False
+def isOnlyDigits(num): # Defines the function isOnlyDigits, which returns True if num is a string of only digits. Otherwise, it returns False (OP)
+    if num == '': # Checks to make sure the string is not empty, if it is it returns False (OP)
+        return False # returns False, which is used by other fucntions(OP)
 
-    for i in num:
-        if i not in '0 1 2 3 4 5 6 7 8 9'.split():
-            return False
+    for i in num: # Uses variable i to represent digits(OP)
+        if i not in '0 1 2 3 4 5 6 7 8 9'.split(): # If the input contains characters other than the digits given here it returns False(OP)
+            return False # returns False, which is used by other fucntions(OP)
 
-    return True
+    return True #If the input does not run any of the above errors it will return True(OP)
 
 
-print('I am thinking of a %s-digit number. Try to guess what it is.' %(NUM_DIGITS))
-print('The clues I give are...')
-print('When I say:    That means:')
-print(' Bagels        None of the digits is correct.')
-print(' Pico          One digit is correct but in the wrong position.')
-print(' Fermi         One digit is correct and in the right position.')
-print(' Al Dante      You got it!')
+print('I am thinking of a %s-digit number. Try to guess what it is.' %(NUM_DIGITS)) #prints out the initial game statement that tells the user what to do after they input how long they want the number to be(OP)
+print('The clues I give are...') #prints out a statement outlining what the hints will be(OP)
+print('When I say:    That means:') #prints the meaning to each clue keyword(OP)
+print(' Bagels        None of the digits is correct.') #prints keyword 'Bagels' once meaning none of the numbers that were inputed are correct(OP)
+print(' Pico          One digit is correct but in the wrong position.') #prints keyword 'Pico' for each digit that is correct but is oriented wrong and does not tell you which digit it is(OP)
+print(' Fermi         One digit is correct and in the right position.') #prints keyword 'Fermi' for each digit that is correct and in the right position but does not tell you which one(OP)
+print(' Al Dante      You got it!') #prints Keyword 'Al Dante' when the user has guessed the right number to indicate that they have won the game(OP) 
 
 while True:
     secretNum = getSecretNum() #defines the variable "secretNum" by using the function getSecretNum which is used as the number the user attempts to guess (FW)
