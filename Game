@@ -49,24 +49,24 @@ print(' Fermi         One digit is correct and in the right position.')
 print(' Al Dante      You got it!')
 
 while True:
-    secretNum = getSecretNum()
-    print('I have thought up a number. You have %s guesses to get it.' %(MAX_GUESS))
+    secretNum = getSecretNum() #defines the variable "secretNum" by using the function getSecretNum which is used as the number the user attempts to guess (FW)
+    print('I have thought up a number. You have %s guesses to get it.' %(MAX_GUESS)) #prints out a statement informing the user that they have a certain amount of guesses, defined by "MAX_GUESS"
 
-    guessesTaken = 1
-    while guessesTaken <= MAX_GUESS:
-        guess = ''
-        while len(guess) != NUM_DIGITS or not isOnlyDigits(guess):
-            print('Guess #%s: ' % (guessesTaken))
-            guess = input()
+    guessesTaken = 1 #defines the variable guessesTaken as one, this variable will be used in the following while loop (FW) 
+    while guessesTaken <= MAX_GUESS: #starts a loop that runs until the user has made the maximun number of guesses, MAX_GUESS (FW)
+        guess = '' #defines the variable guess as an empty string, this will be filled later by an user input (FW)
+        while len(guess) != NUM_DIGITS or not isOnlyDigits(guess): #starts a while loop that will prompt the user for an input while the variable guess is not the right length or type. The empty string ddefined as guess earlier will enter this loop, and the loop will also ensure that the user's input is valid (FW)
+            print('Guess #%s: ' % (guessesTaken)) #prints out the guess number, equal to the variable guessesTaken, which was previously defined and will be changed later in this loop (FW)
+            guess = input() #prompts the user to input their guess
 
-        print(getClues(guess, secretNum))
-        guessesTaken += 1
+        print(getClues(guess, secretNum)) #prints out the function getClues, which gives hints to the user as to what values of theirs are correct (FW)
+        guessesTaken += 1 #adds one to the guessesTaken value, which once it reaches 11 (one above MAX_GUESS) it will stop fulfilling the requirements of the while loop, and exiting it (FW)
 
-        if guess == secretNum:
+        if guess == secretNum: #if the user has correctly guessed the number, it will exit the loop (FW)
             break
-        if guessesTaken > MAX_GUESS:
+        if guessesTaken > MAX_GUESS: #if the amount of guesses reaches 11 (one above MAX_GUESS) it will print out a statement informing the user that they have ran out of guesses (FW)
             print('You ran out of guesses. The answer was %s.' %(secretNum))
 
-    print('Do you want to play again? (yes or no)')
-    if not input().lower().startswith('y'):
+    print('Do you want to play again? (yes or no)') #asks the user if they would like to play again (FW)
+    if not input().lower().startswith('y'): #promps the user to input whether they would like to play again, and if their answer does not begin with a y it will exit, if not, the origional loop will repeat itself, starting the game again (FW)
         break
