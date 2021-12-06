@@ -5,23 +5,40 @@ import random # Imports the random module for use in the getSecretNum function (
 
 def isOnlyDigits(num): # Defines the function isOnlyDigits, which returns True if num is a string of only digits. Otherwise, it returns False (OP)
     if num == '': # Checks to make sure the string is not empty, if it is it returns False (OP)
-        return False # returns False, which is used by other fucntions(OP)
+        return False # Returns False, which is used by other fucntions (OP)
 
-    for i in num: # Uses variable i to represent digits(OP)
-        if i not in '0 1 2 3 4 5 6 7 8 9'.split(): # If the input contains characters other than the digits given here it returns False(OP)
-            return False # returns False, which is used by other fucntions(OP)
+    for i in num: # Uses variable i to represent digits (OP)
+        if i not in '0 1 2 3 4 5 6 7 8 9'.split(): # If the input contains characters other than the digits given here it returns False (OP)
+            return False # Returns False, which is used by other fucntions (OP)
 
-    return True #If the input does not run any of the above errors it will return True(OP)
+    return True # If the input does not run any of the above errors it will return True (OP)
 
-NUM_DIGITS = input('How many digits would you like the secret number to be? (Must be between 3 and 10, using 3 is reccomended for beginners): ') #prompts the user for an input between 3 and 10 for which they would like the length of the secret number to be (FW)
+NUM_DIGITS = input('How many digits would you like the secret number to be? (Must be between 3 and 10, using 3 is reccomended for beginners): ') # Prompts the user for an input between 3 and 10 for which they would like the length of the secret number to be (FW)
+
 try:
-    while isOnlyDigits(NUM_DIGITS) == False or int(NUM_DIGITS) < 3 or int(NUM_DIGITS) > 10: #Starts a loop for when the input is not a value between 3 and 10 (FW)
-        NUM_DIGITS = input('How many digits would you like the secret number to be? (Must be >=3, using 3 is reccomended for beginners): ') #promts the user to input another number which does fit the requirements (FW)
-except (ValueError): #if the number is a not a value, the function in(NUM_DIGITS) < or > 3 will return ValueError, so this part of the code will run if that occurs (FW)
-    NUM_DIGITS = input('How many digits would you like the secret number to be? (Must be >=3, using 3 is reccomended for beginners): ') #promts the user to input another number which does fit the requirements (FW)
+    while isOnlyDigits(NUM_DIGITS) == False or int(NUM_DIGITS) < 3 or int(NUM_DIGITS) > 10: # Starts a loop for when the input is not a value between 3 and 10 (FW)
+        NUM_DIGITS = input('How many digits would you like the secret number to be? (Must be between 3 and 10, using 3 is reccomended for beginners): ') # Prompts the user to input another number which does fit the requirements (FW)
+except (ValueError): # If the number is a not a value, the function in(NUM_DIGITS) < or > 3 will return ValueError, so this part of the code will run if that occurs (FW)
+    NUM_DIGITS = input('How many digits would you like the secret number to be? (Must be between 3 and 10, using 3 is reccomended for beginners): ') # Prompts the user to input another number which does fit the requirements (FW)
 
-MAX_GUESS = (round((int(NUM_DIGITS)**2)*(10/9))) #defines MAX_GUESS as the rounded integer of NUM_DIGITS to the power of 2, multiplied by 10/9. These numbers were chosen in order to create a reasonable limit for guesses for each amount of digits in the secret number (FW)
-NUM_DIGITS = int(NUM_DIGITS) #redefines NUM_DIGITS as an integer
+NUM_DIGITS = int(NUM_DIGITS) # Redefines NUM_DIGITS as an integer (AP)
+difficulty = input('What difficulty would you like to play on? Choose easy, medium or hard: ') # Defines difficulty as a variable where the user inputs what difficulty they want to play on (AP)
+
+while type(difficulty) != str: # Starts a while loop for when difficulty is not of the string type (AP)
+    difficulty = input('What difficulty would you like to play on? Choose easy, medium or hard: ') # If the above is true, asks again for difficulty level until a string is provided (AP)
+    
+while type(difficulty) == str: # Starts a while loop for when difficulty is of the string type (AP)
+    if difficulty[0].lower() == 'e': # Checks if the first index of difficulty is an e, indicating the user typed easy, ez, or similar (AP)
+        MAX_GUESS = (round((NUM_DIGITS**2)*(3/2))) # Defines MAX_GUESS as the rounded integer of NUM_DIGITS to the power of 2, multiplied by 3/2. These numbers were chosen in order to create a reasonable limit for guesses for each amount of digits in the secret number on easy (FW) 
+        break # Breaks the loop if this condition is met (AP)
+    elif difficulty[0].lower() == 'm': # Checks if the first index of difficulty is an m, indicating the user typed medium or a similar string (AP)
+        MAX_GUESS = (round((NUM_DIGITS**2))) # Defines MAX_GUESS as the same as above, but without multiplying by 3/2 to account for higher difficulty (AP)
+        break # Breaks the loop if this condition is met (AP)
+    elif difficulty[0].lower() == 'h': # Checks if the first index of difficulty is an e, indicating the user typed hard or something similar (AP)
+        MAX_GUESS = (round((NUM_DIGITS**2)/(3/2))) # Defines MAX_GUESS as the same as above, instead dividing guesses by 3/2 to account for higher difficulty (AP)
+        break # Breaks the loop if this condition is met (AP)
+    else: # Condition applying to any string that does not start with an e, m, or h (AP)
+        difficulty = input('What difficulty would you like to play on? Choose easy, medium or hard: ') # Restarts the loop and asks again for a difficulty input (AP)
 
 def getSecretNum(): # Defines the function getSecretNum, which returns a string of unique random digits that is NUM_DIGITS long (AP)
     numbers = list(range(10)) # Assigns the variable numbers to a list containing the ten integers from 0 to 9 (AP)
@@ -38,27 +55,27 @@ def getClues(guess, secretNum): # Defines the function getClues, which returns a
     clues = [] # Assigns the variable clues to an empty list to be used in the following for loop (AP)
     for i in range(len(guess)): # Starts a for loop for all i in the range of the length of the user's guess (AP)
         if guess[i] == secretNum[i]: # Determines if the i'th index of guess is the same as the i'th index of secretNum (AP)
-            clues.append('Fermi') # If the above is true, appends 'Fermi' to the clue list to be displayed after the guess (AP)
+            clues.append('Peacock') # If the above is true, appends 'Peacock' to the clue list to be displayed after the guess (AP)
         elif guess[i] in secretNum: # Determines if the i'th index of guess is present anywhere in secretNum (AP)
-            clues.append('Pico') # If the above is true, appends 'Pico' to the clue list to be displayed after the guess (AP)
+            clues.append('Shokata') # If the above is true, appends 'Shokata' to the clue list to be displayed after the guess (AP)
     if len(clues) == 0: # Determines if there are no strings present in clues after the above loop, meaning no digits of secretNum are present in guess (AP)
         return 'Bagels' # If the above is true, returns 'Bagels' instead of anything in clues (AP)
 
     clues.sort() # Sorts the list (clues) alphabetically so the player cannot know any relative orders of the clues with respect to secretNum (AP)
     return ' '.join(clues) # As the final result of the function, joins clues into one string, separating each element of the list by a space, and returns the result (AP)
 
-print('I am thinking of a %s-digit number. Try to guess what it is.' %(NUM_DIGITS)) #prints out the initial game statement that tells the user what to do after they input how long they want the number to be(OP)
-print('The clues I give are...') #prints out a statement outlining what the hints will be(OP)
-print('When I say:    That means:') #prints the meaning to each clue keyword(OP)
-print(' Bagels        None of the digits is correct.') #prints keyword 'Bagels' once meaning none of the numbers that were inputed are correct(OP)
-print(' Pico          One digit is correct but in the wrong position.') #prints keyword 'Pico' for each digit that is correct but is oriented wrong and does not tell you which digit it is(OP)
-print(' Fermi         One digit is correct and in the right position.') #prints keyword 'Fermi' for each digit that is correct and in the right position but does not tell you which one(OP)
-print(' Al Dante      You got it!') #prints Keyword 'Al Dante' when the user has guessed the right number to indicate that they have won the game(OP) 
-print('If at any point you wish to leave the game, simply enter \'quit\'.') #prints out a statement informing the user of a word they can use if they wish to quit the game (FW)
+print('\nI am thinking of a %s-digit number. Try to guess what it is.' %(NUM_DIGITS)) #prints out the initial game statement that tells the user what to do after they input how long they want the number to be(OP)
+print('\nThe clues I give are...') #prints out a statement outlining what the hints will be(OP)
+print('\nWhen I say:   That means:') #prints the meaning to each clue keyword(OP)
+print('Bagels        None of the digits is correct.') #prints keyword 'Bagels' once meaning none of the numbers that were inputed are correct(OP)
+print('Shokata       One digit is correct but in the wrong position.') #prints keyword 'Shokata' for each digit that is correct but is oriented wrong and does not tell you which digit it is(OP)
+print('Peacock       One digit is correct and in the right position.') #prints keyword 'Peacock' for each digit that is correct and in the right position but does not tell you which one(OP)
+print('Al Dante      You got it!') #prints Keyword 'Al Dante' when the user has guessed the right number to indicate that they have won the game(OP) 
+print('\nIf at any point you wish to leave the game, simply enter \'quit\'.') #prints out a statement informing the user of a word they can use if they wish to quit the game (FW)
 
 while True:
     secretNum = getSecretNum() #defines the variable "secretNum" by using the function getSecretNum which is used as the number the user attempts to guess (FW)
-    print('I have thought up a number. You have %s guesses to get it.' %(MAX_GUESS)) #prints out a statement informing the user that they have a certain amount of guesses, defined by "MAX_GUESS"
+    print('\nI have thought up a number. You have %s guesses to get it.' %(MAX_GUESS)) #prints out a statement informing the user that they have a certain amount of guesses, defined by "MAX_GUESS"
 
     guessesTaken = 1 #defines the variable guessesTaken as one, this variable will be used in the following while loop (FW) 
     while guessesTaken <= MAX_GUESS: #starts a loop that runs until the user has made the maximun number of guesses, MAX_GUESS (FW)
@@ -67,7 +84,7 @@ while True:
             if guess == 'quit': #breaks from the loop if the guess is quit (FW)
                 break
             else:
-                print('Guess #%s: ' % (guessesTaken)) #prints out the guess number, equal to the variable guessesTaken, which was previously defined and will be changed later in this loop (FW)
+                print('\nGuess #%s: ' % (guessesTaken)) #prints out the guess number, equal to the variable guessesTaken, which was previously defined and will be changed later in this loop (FW)
                 guess = input() #prompts the user to input their guess
 
         if guess == 'quit': #breaks from the loop if the guess is quit, this allows the user to restart or quit the game if they want to as it will then ask the user if they would like to play again (FW)
@@ -79,8 +96,8 @@ while True:
         if guess == secretNum: #if the user has correctly guessed the number, it will exit the loop (FW)
             break
         if guessesTaken > MAX_GUESS: #if the amount of guesses reaches 11 (one above MAX_GUESS) it will print out a statement informing the user that they have ran out of guesses (FW)
-            print('You ran out of guesses. The answer was %s.' %(secretNum))
+            print('\nYou ran out of guesses. The answer was %s.' %(secretNum))
 
-    print('Do you want to play again? (yes or no)') #asks the user if they would like to play again (FW)
+    print('\nDo you want to play again? (yes or no)') #asks the user if they would like to play again (FW)
     if not input().lower().startswith('y'): #promps the user to input whether they would like to play again, and if their answer does not begin with a y it will exit, if not, the origional loop will repeat itself, starting the game again (FW)
         break
