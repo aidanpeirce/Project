@@ -48,7 +48,7 @@ def getSecretNum(): # Defines the function getSecretNum, which returns a string 
         secretNum += str(numbers[i]) # Reassigns secretNum for each instance in the loop, appending a random integer from 0 to 9 to the end of the string for each digit (AP)
     return secretNum # Returns the new, reassigned string secretNum as a result of the function (AP)
 
-def getClues(guess, secretNum): # Defines the function getClues, which returns a string with the Pico, Fermi, & Bagels clues to the user (AP)
+def getClues(guess, secretNum): # Defines the function getClues, which returns a string with the Shokata, Peacock, & Bagels clues to the user (AP)
     if guess == secretNum: # Initial if statement to test if the guess is equal to the number the game is thinking of, secretNum (AP)
         return 'Al Dante' # Returns a text string if the above statement is true, else the function continues (AP)
 
